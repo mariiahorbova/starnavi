@@ -9,6 +9,12 @@ class PostSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class CustomPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        exclude = ["likes"]
+
+
 class UserActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = UserActivity
@@ -38,3 +44,8 @@ class UserSerializer(serializers.ModelSerializer):
             last_name=validated_data.get("last_name", "")
         )
         return user
+
+
+class AnalyticsSerializer(serializers.Serializer):
+    created_at = serializers.DateTimeField()
+    like_count = serializers.IntegerField()
